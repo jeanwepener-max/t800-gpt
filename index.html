@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>T-800 GPT</title>
+
+    <style>
+        body {
+            background: black;
+            color: #00ccff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        img {
+            width: 400px;
+            max-width: 90%;
+        }
+
+        button {
+            background: red;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>INCOMING TRANSMISSION</h1>
+
+robot.jpg
+
+<br><br>
+
+<button onclick="playAudio()">ACTIVATE</button>
+
+<audio id="theme">
+    .mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function playAudio() {
+    document.getElementById("theme").play();
+
+    setTimeout(() => {
+        alert("I'll be back... with the answer.");
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
