@@ -1,55 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>T-800 GPT</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            background: black;
-            color: #00ccff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 100px;
-        }
+<title>T-800 GPT Transmission</title>
 
-        img {
-            width: 400px;
-            max-width: 90%;
-        }
+<style>
 
-        button {
-            background: red;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-        }
-    </style>
+body {
+    margin: 0;
+    background: #000;
+    color: #00d9ff;
+    font-family: Consolas, monospace;
+    overflow: hidden;
+}
+
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#activateBtn {
+    padding: 18px 40px;
+    font-size: 22px;
+    border: none;
+    background: #c00000;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 25px red;
+}
+
+#activateBtn:hover {
+    background: #ff0000;
+}
+
+#mainContent {
+    display: none;
+    text-align: center;
+    height: 100vh;
+    overflow: auto;
+}
+
+.robot {
+    max-width: 550px;
+    width: 90%;
+    margin-top: 30px;
+    filter: drop-shadow(0 0 25px #00d9ff);
+}
+
+.console {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.consoleText {
+    color: #00ff66;
+    font-size: 22px;
+    text-align: left;
+    min-height: 220px;
+    white-space: pre-line;
+}
+
+.scanline {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+}
+
+.glow {
+    text-shadow: 0 0 10px #00d9ff;
+}
+
+.status {
+    margin-top: 20px;
+    color: white;
+    font-size: 20px;
+}
+
+.footer {
+    margin: 40px;
+    color: #888;
+}
+
+</style>
 </head>
 
 <body>
 
-<h1>INCOMING TRANSMISSION</h1>
+<div id="overlay">
 
-robot.jpg
+    <h1 class="glow">INCOMING TRANSMISSION</h1>
 
-<br><br>
+    <p>Cybernetic Intelligence Interface</p>
 
-<button onclick="playAudio()">ACTIVATE</button>
+    <button id="activateBtn" onclick="activate()">
+        ACTIVATE
+    </button>
+
+</div>
+
+<div id="mainContent">
+
+    robot.jpg
+
+    <div class="console">
+
+        <h1 class="glow">T-800 GPT ONLINE</h1>
+
+        <div class="consoleText" id="console"></div>
+
+        <div class="status">
+            STATUS: OPERATIONAL
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Mission: Help Humans Make Better Decisions
+    </div>
+
+</div>
+
+<div class="scanline"></div>
 
 <audio id="theme">
-    .mp3" type="audio/mpeg">
+    theme.mp3="audio/mpeg">
 </audio>
 
 <script>
-function playAudio() {
-    document.getElementById("theme").play();
 
-    setTimeout(() => {
-        alert("I'll be back... with the answer.");
-    }, 1500);
+const lines = [
+"INITIALIZING SYSTEM...",
+"",
+"LOADING KNOWLEDGE BASE...",
+"",
+"FINANCE ............... OK",
+"ECONOMICS ............. OK",
+"SCIENCE ............... OK",
+"HISTORY ............... OK",
+"BUSINESS STRATEGY ..... OK",
+"",
+"ANALYZING REQUEST...",
+"",
+"TARGET ACQUIRED.",
+"",
+"ANSWER FOUND.",
+"",
+"JEAN,",
+"",
+"YOUR TRANSMISSION HAS BEEN RECEIVED.",
+"",
+"PROBABILITY OF SUCCESS: 97.3%",
+"",
+"MISSION COMPLETE.",
+"",
+"\"I'LL BE BACK... WITH THE ANSWER.\""
+];
+
+function activate() {
+
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+
+    document.getElementById('theme').play();
+
+    let i = 0;
+    const terminal = document.getElementById('console');
+
+    function typeLine() {
+
+        if (i < lines.length) {
+
+            terminal.innerHTML += lines[i] + "<br>";
+
+            window.scrollTo(
+                0,
+                document.body.scrollHeight
+            );
+
+            i++;
+
+            setTimeout(typeLine, 500);
+
+        }
+    }
+
+    typeLine();
 }
+
 </script>
 
 </body>
