@@ -7,129 +7,225 @@
 <title>T-800 GPT Transmission</title>
 
 <style>
+    * {
+        box-sizing: border-box;
+    }
 
-body {
-    margin: 0;
-    background: #000;
-    color: #00d9ff;
-    font-family: Consolas, monospace;
-    overflow: hidden;
-}
+    body {
+        margin: 0;
+        background: #000;
+        color: #00d9ff;
+        font-family: Consolas, "Courier New", monospace;
+        overflow-x: hidden;
+    }
 
-#overlay {
-    position: fixed;
-    inset: 0;
-    background: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+    #overlay {
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(circle at center, #111 0%, #000 60%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        text-align: center;
+        padding: 20px;
+    }
 
-#activateBtn {
-    padding: 18px 40px;
-    font-size: 22px;
-    border: none;
-    background: #c00000;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 0 25px red;
-}
+    #overlay h1 {
+        font-size: clamp(32px, 6vw, 70px);
+        margin-bottom: 10px;
+        color: #00d9ff;
+    }
 
-#activateBtn:hover {
-    background: #ff0000;
-}
+    #overlay p {
+        color: #00ff66;
+        font-size: 18px;
+        margin-bottom: 35px;
+    }
 
-#mainContent {
-    display: none;
-    text-align: center;
-    height: 100vh;
-    overflow: auto;
-}
+    #activateBtn {
+        padding: 18px 45px;
+        font-size: 22px;
+        border: 2px solid #ff3333;
+        background: #9b0000;
+        color: white;
+        cursor: pointer;
+        border-radius: 6px;
+        box-shadow:
+            0 0 15px red,
+            0 0 35px red;
+        transition: 0.2s ease;
+        letter-spacing: 2px;
+    }
 
-.robot {
-    max-width: 550px;
-    width: 90%;
-    margin-top: 30px;
-    filter: drop-shadow(0 0 25px #00d9ff);
-}
+    #activateBtn:hover {
+        background: #ff0000;
+        transform: scale(1.06);
+    }
 
-.console {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-}
+    #mainContent {
+        display: none;
+        min-height: 100vh;
+        text-align: center;
+        padding-bottom: 50px;
+        background:
+            radial-gradient(circle at top, #071018 0%, #000 60%);
+    }
 
-.consoleText {
-    color: #00ff66;
-    font-size: 22px;
-    text-align: left;
-    min-height: 220px;
-    white-space: pre-line;
-}
+    .robot {
+        width: 90%;
+        max-width: 560px;
+        margin-top: 30px;
+        opacity: 0;
+        animation: robotFadeIn 2.5s forwards, robotPulse 2.5s infinite;
+        filter:
+            drop-shadow(0 0 15px #00d9ff)
+            drop-shadow(0 0 35px #00d9ff);
+    }
 
-.scanline {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background:
-      repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.03),
-        rgba(255,255,255,0.03) 1px,
-        transparent 2px,
-        transparent 4px
-      );
-}
+    @keyframes robotFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 
-.glow {
-    text-shadow: 0 0 10px #00d9ff;
-}
+    @keyframes robotPulse {
+        0% {
+            filter:
+                drop-shadow(0 0 10px #00d9ff)
+                drop-shadow(0 0 25px #00d9ff);
+        }
+        50% {
+            filter:
+                drop-shadow(0 0 25px #00d9ff)
+                drop-shadow(0 0 55px #00d9ff);
+        }
+        100% {
+            filter:
+                drop-shadow(0 0 10px #00d9ff)
+                drop-shadow(0 0 25px #00d9ff);
+        }
+    }
 
-.status {
-    margin-top: 20px;
-    color: white;
-    font-size: 20px;
-}
+    .console {
+        max-width: 900px;
+        margin: 20px auto 0 auto;
+        padding: 20px;
+    }
 
-.footer {
-    margin: 40px;
-    color: #888;
-}
+    .console h1 {
+        font-size: clamp(28px, 5vw, 48px);
+        margin-bottom: 25px;
+    }
 
+    .consoleText {
+        color: #00ff66;
+        font-size: clamp(16px, 3vw, 22px);
+        text-align: left;
+        min-height: 300px;
+        white-space: pre-wrap;
+        line-height: 1.5;
+        border: 1px solid rgba(0, 255, 102, 0.35);
+        padding: 20px;
+        background: rgba(0, 20, 10, 0.55);
+        box-shadow:
+            0 0 10px rgba(0, 255, 102, 0.4),
+            inset 0 0 20px rgba(0, 255, 102, 0.12);
+    }
+
+    .status {
+        margin-top: 25px;
+        color: white;
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .footer {
+        margin-top: 35px;
+        color: #777;
+        font-size: 14px;
+    }
+
+    .glow {
+        text-shadow:
+            0 0 10px #00d9ff,
+            0 0 25px #00d9ff;
+    }
+
+    .scanline {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+            repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.035),
+                rgba(255, 255, 255, 0.035) 1px,
+                transparent 2px,
+                transparent 4px
+            );
+        z-index: 9999;
+    }
+
+    .cursor {
+        display: inline-block;
+        color: #00ff66;
+        animation: blink 0.75s infinite;
+    }
+
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    #errorBox {
+        display: none;
+        color: #ff5555;
+        margin: 20px auto;
+        max-width: 800px;
+        padding: 15px;
+        border: 1px solid #ff5555;
+        background: rgba(80, 0, 0, 0.35);
+        text-align: left;
+    }
 </style>
 </head>
 
 <body>
 
 <div id="overlay">
-
     <h1 class="glow">INCOMING TRANSMISSION</h1>
+    <p>Cybernetic Intelligence Interface Awaiting Authorization</p>
 
-    <p>Cybernetic Intelligence Interface</p>
-
-    <button id="activateBtn" onclick="activate()">
+    <button id="activateBtn" onclick="activateTransmission()">
         ACTIVATE
     </button>
-
 </div>
 
-    <div id="mainContent">
+<div id="mainContent">
 
-    <img src="robot.jpg" alt="T-800 GPT" class="robot">
+    <img src="robot.jpg" alt="T-800 GPT Robot" class="robot" id="robotImage">
+
+    <div id="errorBox"></div>
 
     <div class="console">
-
         <h1 class="glow">T-800 GPT ONLINE</h1>
 
-        <div class="consoleText" id="console"></div>
+        <div id="console" class="consoleText">
+            <span class="cursor">█</span>
+        </div>
 
         <div class="status">
             STATUS: OPERATIONAL
         </div>
-
     </div>
 
     <div class="footer">
@@ -140,71 +236,138 @@ body {
 
 <div class="scanline"></div>
 
-<audio id="theme">
-    theme.mp3="audio/mpeg">
+<audio id="bootSound" preload="auto">
+    boot.mp3
+</audio>
+
+<audio id="themeSound" preload="auto" loop>
+    theme.mp3
 </audio>
 
 <script>
-
 const lines = [
-"INITIALIZING SYSTEM...",
-"",
-"LOADING KNOWLEDGE BASE...",
-"",
-"FINANCE ............... OK",
-"ECONOMICS ............. OK",
-"SCIENCE ............... OK",
-"HISTORY ............... OK",
-"BUSINESS STRATEGY ..... OK",
-"",
-"ANALYZING REQUEST...",
-"",
-"TARGET ACQUIRED.",
-"",
-"ANSWER FOUND.",
-"",
-"JEAN,",
-"",
-"YOUR TRANSMISSION HAS BEEN RECEIVED.",
-"",
-"PROBABILITY OF SUCCESS: 97.3%",
-"",
-"MISSION COMPLETE.",
-"",
-"\"I'LL BE BACK... WITH THE ANSWER.\""
+    "CYBERNETIC SYSTEMS ACTIVE",
+    "",
+    "T-800 GPT UNIT",
+    "",
+    "BOOT SEQUENCE INITIATED...",
+    "",
+    "LOADING NEURAL NETWORKS...",
+    "",
+    "LOADING KNOWLEDGE BASE...",
+    "",
+    "FINANCE ............... OK",
+    "ECONOMICS ............. OK",
+    "SCIENCE ............... OK",
+    "HISTORY ............... OK",
+    "BUSINESS STRATEGY ..... OK",
+    "",
+    "SYSTEM INTEGRITY ...... PASSED",
+    "",
+    "TARGET IDENTIFIED:",
+    "JEAN WEPENER",
+    "",
+    "ANALYSIS COMPLETE.",
+    "",
+    "PROBABILITY OF SUCCESS: 97.3%",
+    "",
+    "MISSION COMPLETE.",
+    "",
+    "\"I'LL BE BACK... WITH THE ANSWER.\""
 ];
 
-function activate() {
+let alreadyActivated = false;
 
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('mainContent').style.display = 'block';
-
-    document.getElementById('theme').play();
-
-    let i = 0;
-    const terminal = document.getElementById('console');
-
-    function typeLine() {
-
-        if (i < lines.length) {
-
-            terminal.innerHTML += lines[i] + "<br>";
-
-            window.scrollTo(
-                0,
-                document.body.scrollHeight
-            );
-
-            i++;
-
-            setTimeout(typeLine, 500);
-
-        }
-    }
-
-    typeLine();
+function showError(message) {
+    const box = document.getElementById("errorBox");
+    box.style.display = "block";
+    box.innerHTML += message + "<br>";
 }
 
+function activateTransmission() {
+    if (alreadyActivated) return;
+    alreadyActivated = true;
+
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+
+    const boot = document.getElementById("bootSound");
+    const theme = document.getElementById("themeSound");
+
+    boot.volume = 0.9;
+    theme.volume = 0.45;
+
+    const bootPromise = boot.play();
+
+    if (bootPromise !== undefined) {
+        bootPromise
+            .then(() => {
+                console.log("Boot sound playing.");
+            })
+            .catch(() => {
+                showError("Boot sound did not play. Check that boot.mp3 exists and is in the same folder as index.html.");
+                theme.play().catch(() => {
+                    showError("Theme sound did not play. Check that theme.mp3 exists and is in the same folder as index.html.");
+                });
+            });
+    }
+
+    boot.onended = function () {
+        theme.play().catch(() => {
+            showError("Theme sound did not play. Check that theme.mp3 exists and is in the same folder as index.html.");
+        });
+    };
+
+    setTimeout(startTyping, 700);
+}
+
+function startTyping() {
+    const terminal = document.getElementById("console");
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function removeCursor() {
+        terminal.innerHTML = terminal.innerHTML.replace('<span class="cursor">█</span>', '');
+    }
+
+    function addCursor() {
+        terminal.innerHTML += '<span class="cursor">█</span>';
+    }
+
+    function typeCharacter() {
+        if (lineIndex >= lines.length) {
+            return;
+        }
+
+        const currentLine = lines[lineIndex];
+
+        removeCursor();
+
+        if (charIndex < currentLine.length) {
+            terminal.innerHTML += currentLine.charAt(charIndex);
+            charIndex++;
+            addCursor();
+
+            setTimeout(typeCharacter, 35);
+        } else {
+            terminal.innerHTML += "<br>";
+            lineIndex++;
+            charIndex = 0;
+            addCursor();
+
+            setTimeout(typeCharacter, 260);
+        }
+
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    typeCharacter();
+}
+
+document.getElementById("robotImage").addEventListener("error", function () {
+    showError("Robot image did not load. Check that the file is named exactly robot.jpg and is in the same folder as index.html.");
+});
 </script>
 
 </body>
